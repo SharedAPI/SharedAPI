@@ -2,7 +2,9 @@ package fr.traqueur.shared.api;
 
 import com.google.gson.Gson;
 import fr.traqueur.shared.api.domain.AuthBody;
+import fr.traqueur.shared.api.domain.TokenResponse;
 import fr.traqueur.shared.api.requests.EndPoints;
+import org.yaml.snakeyaml.tokens.Token;
 
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -14,7 +16,7 @@ import java.util.concurrent.ExecutionException;
 
 public class SharedClient {
 
-    private Gson gson;
+    private final Gson gson;
     private final HttpClient webClient;
     private String token;
 
@@ -22,7 +24,7 @@ public class SharedClient {
         this.gson = gson;
         this.webClient = this.buildClient();
         this.getToken(server, plugin)
-                .thenAccept(token -> this.token = token)
+                .thenAccept(tokenResponse -> this.token = tokenResponse.token())
                 .get();
     }
 
@@ -33,7 +35,7 @@ public class SharedClient {
                 .build();
     }
 
-    private CompletableFuture<String> getToken(UUID server, UUID plugin) {
+    private CompletableFuture<TokenResponse> getToken(UUID server, UUID plugin) {
         try (var client = this.webClient) {
 
             String body = this.gson.toJson(new AuthBody(server, plugin), AuthBody.class);
@@ -44,7 +46,8 @@ public class SharedClient {
                     .build();
 
             var response = client.sendAsync(request, HttpResponse.BodyHandlers.ofString());
-            return response.thenApply(HttpResponse::body);
+
+            return response.thenApply(responseInner -> this.gson.fromJson(responseInner.body(), TokenResponse.class));
         }
     }
 
