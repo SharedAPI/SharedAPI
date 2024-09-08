@@ -1,0 +1,4 @@
+name: Shared
+version: '1.0-SNAPSHOT'
+main: fr.traqueur.shared.Shared
+api-version: '1.21'
