@@ -42,6 +42,7 @@ public class SharedClient {
 
             var request = HttpRequest.newBuilder()
                     .uri(SharedAPI.API_URL.resolve(EndPoints.AUTH))
+                    .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(body))
                     .build();
 
@@ -54,6 +55,7 @@ public class SharedClient {
     public HttpRequest.Builder request(EndPoints endpoint) {
         return HttpRequest.newBuilder()
                 .uri(SharedAPI.API_URL.resolve(endpoint))
+                .header("Content-Type", "application/json")
                 .header("Authorization", "Bearer " + this.token);
     }
 
