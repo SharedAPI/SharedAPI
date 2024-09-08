@@ -49,8 +49,4 @@ public class SharedAPI {
     public SharedClient getClient() {
         return client;
     }
-
-    public String sereliaze(AuthBody authBody) {
-        return this.gson.toJson(authBody, AuthBody.class);
-    }
 }

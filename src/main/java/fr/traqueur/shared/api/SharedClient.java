@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import fr.traqueur.shared.api.domain.AuthBody;
 import fr.traqueur.shared.api.domain.TokenResponse;
 import fr.traqueur.shared.api.requests.EndPoints;
-import org.yaml.snakeyaml.tokens.Token;
 
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -40,13 +39,14 @@ public class SharedClient {
 
             String body = this.gson.toJson(new AuthBody(server, plugin), AuthBody.class);
 
-            var request = HttpRequest.newBuilder()
+            HttpRequest request = HttpRequest.newBuilder()
                     .uri(SharedAPI.API_URL.resolve(EndPoints.AUTH))
                     .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(body))
                     .build();
 
-            var response = client.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+            CompletableFuture<HttpResponse<String>> response =
+                    client.sendAsync(request, HttpResponse.BodyHandlers.ofString());
 
             return response.thenApply(responseInner -> this.gson.fromJson(responseInner.body(), TokenResponse.class));
         }
@@ -63,4 +63,7 @@ public class SharedClient {
         return this.webClient;
     }
 
+    public String getToken() {
+        return token;
+    }
 }

@@ -2,7 +2,7 @@ package fr.traqueur.shared.api.requests;
 
 public enum EndPoints {
 
-    AUTH("/auth"),
+    AUTH("/auth/"),
     ;
 
     private String path;
