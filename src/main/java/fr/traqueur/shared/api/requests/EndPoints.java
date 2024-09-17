@@ -3,7 +3,7 @@ package fr.traqueur.shared.api.requests;
 public enum EndPoints {
 
     AUTH("/auth/"),
-    SCHEMA("/schemas/{plugin_uuid}/"),
+    SCHEMA("/schema/{plugin_uuid}/"),
     ;
 
     private String path;

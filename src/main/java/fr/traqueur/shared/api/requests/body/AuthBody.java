@@ -1,4 +1,4 @@
-package fr.traqueur.shared.api.requests;
+package fr.traqueur.shared.api.requests.body;
 
 import java.util.UUID;
 

@@ -2,8 +2,8 @@ package fr.traqueur.shared.api;
 
 import com.google.gson.Gson;
 import fr.traqueur.shared.api.domain.Schema;
-import fr.traqueur.shared.api.requests.AuthBody;
-import fr.traqueur.shared.api.requests.TokenResponse;
+import fr.traqueur.shared.api.requests.body.AuthBody;
+import fr.traqueur.shared.api.requests.responses.TokenResponse;
 import fr.traqueur.shared.api.requests.EndPoints;
 
 import java.net.http.HttpClient;
