@@ -1,9 +1,5 @@
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import fr.traqueur.shared.api.SharedAPI;
-
-import fr.traqueur.shared.api.domain.AuthBody;
-import fr.traqueur.shared.api.requests.EndPoints;
+import fr.traqueur.shared.api.domain.Table;
 
 import java.util.UUID;
 
@@ -23,8 +19,35 @@ public class Test {
                 UUID.fromString("fec25486-5d82-42ff-b5fe-691432b42f21"),
                 UUID.fromString("42545d71-0f5b-46cd-9f04-77f82a52f296"));
 
-        System.out.println(api.getClient().getToken());
+        /*
+        * api.registerTable(<table_name>);
+        api.registerTable(<table_name>);
 
+
+
+        api.createTables();
+        * */
+
+        api.registerTable("table_test", Table.class);
+        api.registerTable("table_test2", Table2.class);
+        api.loadSchema();
+
+    }
+
+    public static record Table(String name, String lastName, double money) implements fr.traqueur.shared.api.domain.Table {
+
+        @Override
+        public String getName() {
+            return "table_test";
+        }
+    }
+
+    public static record Table2(UUID uuid, String test, float testfloat) implements fr.traqueur.shared.api.domain.Table {
+
+        @Override
+        public String getName() {
+            return "table_test2";
+        }
     }
 
 }

@@ -1,3 +1,3 @@
-package fr.traqueur.shared.api.domain;
+package fr.traqueur.shared.api.requests;
 
 public record TokenResponse(String token) {}
