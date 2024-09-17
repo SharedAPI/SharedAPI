@@ -66,7 +66,7 @@ public class SharedClient {
         String body = this.gson.toJson(schema, Schema.class);
 
         var builderRequest =
-                this.buildRequest(EndPoints.SCHEMA.match("plugin_uuid", this.plugin.toString()));
+                this.buildRequest(EndPoints.CREATE_SCHEMA.match("plugin_uuid", this.plugin.toString()));
 
         this.sendRequest(builderRequest
                 .POST(HttpRequest.BodyPublishers.ofString(body))
