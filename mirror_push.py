@@ -5,7 +5,6 @@ from github import Auth
 from github.GithubException import GithubException
 
 SOURCE_BRANCH = os.getenv("SOURCE_BRANCH")
-TARGET_BRANCH = os.getenv("TARGET_BRANCH", SOURCE_BRANCH)
 SOURCE_REPO = os.getenv("SOURCE_REPO")  # format: org/source-repo
 TARGET_REPO = os.getenv("TARGET_REPO")  # format: org/target-repo
 TOKEN = os.getenv("MIRROR_TOKEN")
@@ -56,7 +55,7 @@ def main():
     repo_url_target = f"https://x-access-token:{TOKEN}@github.com/{TARGET_REPO}.git"
     run(f"git remote add mirror {repo_url_target}", cwd="repo")
     run("git remote -v", cwd="repo")
-    run(f"git push mirror {SOURCE_BRANCH}:{TARGET_BRANCH} --force", cwd="repo")
+    run(f"git push mirror {SOURCE_BRANCH}:upstream --force", cwd="repo")
 
 if __name__ == "__main__":
     main()
