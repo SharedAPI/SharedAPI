@@ -35,6 +35,9 @@ def main():
     current_repo_url = subprocess.check_output("git config --get remote.origin.url", shell=True).decode().strip()
     expected_target_url_suffix = f"github.com/{TARGET_REPO}.git"
 
+    print(f"URL du dépôt actuel : {current_repo_url}")
+    print(f"URL du dépôt cible : {expected_target_url_suffix}")
+
     if expected_target_url_suffix in current_repo_url:
         print("🛑 Ce script est en cours d'exécution dans le dépôt cible. Arrêt.")
         exit(0)
