@@ -16,7 +16,7 @@ jobs:
 
       - name: Set up Git
         run: |
-          git config user.name "Traqueur_"
+          git config user.name "Traqueur-dev"
           git config user.email "traqueur.dev@gmail.com"
 
       - name: Setup Python
