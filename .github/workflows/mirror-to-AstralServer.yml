@@ -9,7 +9,10 @@ jobs:
   mirror:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout source with full history
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Set up Git
         run: |
@@ -25,6 +28,7 @@ jobs:
         env:
           SOURCE_BRANCH: "main"
           TARGET_REPO: "AstralServer/SharedAPI"
+          SOURCE_REPO: "SharedAPI/SharedAPI"
           MIRROR_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         run: |
           python mirror_push.py
