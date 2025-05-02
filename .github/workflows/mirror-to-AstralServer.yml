@@ -10,19 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up Git
         run: |
-          git config user.name "Traqueur_"
-          git config user.email "traqueur.dev@gmail.com"
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
 
-      - name: Push to target repo
+      - name: Push to target repo via HTTPS
         env:
-          DEST_REPO: git@github.com:AstralServer/SharedAPI.git
-          SSH_PRIVATE_KEY: ${{ secrets.DEST_REPO_SSH_KEY }}
+          TARGET_REPO_URL: https://x-access-token:${ secrets.PERSONAL_ACCESS_TOKEN }@github.com/AstralServer/SharedAPI.git
         run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-          git remote add dest "$DEST_REPO"
+          git remote add dest "$TARGET_REPO_URL"
           git push --force dest main
