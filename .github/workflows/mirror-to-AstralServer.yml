@@ -24,6 +24,9 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Install PyGithub
+        run: pip install PyGithub
+
       - name: Run Python script to mirror branch
         env:
           SOURCE_BRANCH: "main"
