@@ -12,8 +12,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Set up Git
         run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
+          git config user.name "Traqueur_"
+          git config user.email "traqueur.dev@gmail.com"
 
       - name: Push to target repo
         env:
