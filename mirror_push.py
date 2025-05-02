@@ -31,14 +31,6 @@ def main():
     repo_src = gh.get_repo(SOURCE_REPO)
     repo_dst = gh.get_repo(TARGET_REPO)
 
-    # Vérifie si le script s'exécute dans le dépôt cible
-    current_repo_url = subprocess.check_output("git config --get remote.origin.url", shell=True).decode().strip()
-    expected_target_url_suffix = f"github.com/{TARGET_REPO}.git"
-
-    if expected_target_url_suffix in current_repo_url:
-        print("🛑 Ce script est en cours d'exécution dans le dépôt cible. Arrêt.")
-        exit(0)
-
     # Vérifie si la branche source existe
     if not branch_exists(repo_src, SOURCE_BRANCH):
         print(f"❌ La branche source '{SOURCE_BRANCH}' n'existe pas dans {SOURCE_REPO}")
