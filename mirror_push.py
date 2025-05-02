@@ -6,6 +6,7 @@ from github.GithubException import GithubException
 
 SOURCE_BRANCH = os.getenv("SOURCE_BRANCH")
 TARGET_BRANCH = os.getenv("TARGET_BRANCH", "upstream")
+MAIN_TARGET_BRANCH = os.getenv("MAIN_TARGET_BRANCH", "main")
 SOURCE_REPO = os.getenv("SOURCE_REPO")  # format: org/source-repo
 TARGET_REPO = os.getenv("TARGET_REPO")  # format: org/target-repo
 TOKEN = os.getenv("MIRROR_TOKEN")
@@ -21,9 +22,9 @@ def branch_exists(repo, branch_name):
     except GithubException:
         return False
 
-def create_branch_from(repo_src, repo_dst, src_branch, dst_branch):
+def create_branch_from(repo_dst, src_branch, dst_branch):
     print(f"Creating branch '{dst_branch}' in target repo from source '{src_branch}'")
-    src_ref = repo_src.get_git_ref(f"heads/{src_branch}")
+    src_ref = repo_dst.get_git_ref(f"heads/{src_branch}")
     repo_dst.create_git_ref(ref=f"refs/heads/{dst_branch}", sha=src_ref.object.sha)
 
 def main():
@@ -46,7 +47,7 @@ def main():
     # Crée la branche cible si nécessaire
     if not branch_exists(repo_dst, TARGET_BRANCH):
         print(f"ℹ️ La branche '{TARGET_BRANCH}' n'existe pas dans {TARGET_REPO}, création en cours...")
-        create_branch_from(repo_src, repo_dst, SOURCE_BRANCH, TARGET_BRANCH)
+        create_branch_from(repo_dst, MAIN_TARGET_BRANCH, TARGET_BRANCH)
 
     # Cloner depuis le dépôt source
     repo_url_source = f"https://x-access-token:{TOKEN}@github.com/{SOURCE_REPO}.git"
