@@ -3,7 +3,7 @@ name: Mirror to AstralServer/SharedAPI
 on:
   push:
     branches:
-      - "main"
+      - main
 
 jobs:
   mirror:
@@ -18,7 +18,7 @@ jobs:
 
       - name: Push to target repo via HTTPS
         env:
-          TARGET_REPO_URL: https://${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/AstralServer/SharedAPI.git
+          TARGET_REPO_URL: https://${ secrets.PERSONAL_ACCESS_TOKEN }@github.com/AstralServer/SharedAPI.git
         run: |
           git remote add dest "$TARGET_REPO_URL"
           git push --force dest main
