@@ -1,9 +1,9 @@
-name: Mirror to AstralServer/SharedAPI
+name: Mirror to {TARGET_ORG}/{REPO_NAME}
 
 on:
   push:
     branches:
-      - main
+      - {BRANCH_NAME}
 
 jobs:
   mirror:
@@ -13,12 +13,12 @@ jobs:
 
       - name: Set up Git
         run: |
-          git config user.name "Traqueur_"
-          git config user.email "traqueur.dev@gmail.com"
+          git config user.name "{GITHUB_ACTOR}"
+          git config user.email "{GITHUB_EMAIL}"
 
       - name: Push to target repo via HTTPS
         env:
-          TARGET_REPO_URL: https://${ secrets.PERSONAL_ACCESS_TOKEN }@github.com/AstralServer/SharedAPI.git
+          TARGET_REPO_URL: https://${{ secrets.{SECRET_NAME} }}@github.com/{TARGET_ORG}/{REPO_NAME}.git
         run: |
           git remote add dest "$TARGET_REPO_URL"
-          git push --force dest main
+          git push --force dest {BRANCH_NAME}
